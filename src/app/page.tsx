@@ -1,89 +1,78 @@
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import React, { useState, useCallback, useEffect } from 'react';
-import { UserData, AnalysisResult } from '../types';
-import { analyzeRetirement } from '../services/retirementCalculator';
-import RetirementForm from '../components/RetirementForm';
-import ResultsDisplay from '../components/ResultsDisplay';
-import { Header } from '../components/Header';
-import { Footer } from '../components/Footer';
+const LoginPage: React.FC = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-const App: React.FC = () => {
-  const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
-
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('fullscreen') === 'true') {
-      setIsFullscreen(true);
-    }
-  }, []);
-
-  const handleAnalysis = useCallback((data: UserData) => {
-    setIsLoading(true);
-    setError(null);
-    setAnalysisResult(null);
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
     
-    // Simulate async calculation for better UX
-    setTimeout(() => {
-      try {
-        const result = analyzeRetirement(data);
-        setAnalysisResult(result);
-      } catch (e) {
-        if (e instanceof Error) {
-          setError(e.message);
-        } else {
-          setError('Ocorreu um erro desconhecido durante a análise.');
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    }, 500);
-  }, []);
+    // Simples validação - qualquer usuário/senha funciona
+    if (username.trim() && password.trim()) {
+      navigate('/main');
+    } else {
+      alert('Por favor, preencha usuário e senha');
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800">
-      <div className="no-print">
-        {!isFullscreen && <Header />}
-      </div>
-      <main className="container mx-auto p-4 md:p-8">
-        <div className="max-w-4xl mx-auto">
-          {!isFullscreen && (
-            <p className="text-center text-slate-600 mb-8 no-print">
-              Preencha os campos abaixo para simular as possibilidades de aposentadoria para servidores da educação de Minas Gerais.
-            </p>
-          )}
-          <div className="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-slate-200 retirement-form-container">
-            <RetirementForm onSubmit={handleAnalysis} isLoading={isLoading} />
-          </div>
-          
-          {isLoading && (
-            <div className="text-center mt-8 no-print">
-              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-              <p className="mt-2 text-blue-600 font-semibold">Analisando...</p>
-            </div>
-          )}
-
-          {error && (
-            <div className="mt-8 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-md no-print" role="alert">
-              <p className="font-bold">Erro na Análise</p>
-              <p>{error}</p>
-            </div>
-          )}
-
-          {analysisResult && !isLoading && (
-            <div className="mt-10 results-container">
-              <ResultsDisplay result={analysisResult} />
-            </div>
-          )}
+    <div className="min-h-screen bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-slate-800 mb-2">
+            Simulador de Aposentadoria
+          </h1>
+          <p className="text-blue-600 font-semibold text-xs uppercase tracking-wider">
+            Secretaria de Estado de Educação de Minas Gerais
+          </p>
         </div>
-      </main>
-       <div className="no-print">
-        {!isFullscreen && <Footer />}
+
+        {/* Form */}
+        <form onSubmit={handleLogin} className="space-y-5">
+          {/* Username */}
+          <div>
+            <label htmlFor="username" className="block text-sm font-semibold text-slate-700 mb-2">
+              Usuário
+            </label>
+            <input
+              id="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Digite seu usuário"
+              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+            />
+          </div>
+
+          {/* Password */}
+          <div>
+            <label htmlFor="password" className="block text-sm font-semibold text-slate-700 mb-2">
+              Senha
+            </label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Digite sua senha"
+              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+            />
+          </div>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition duration-200 transform hover:scale-105 active:scale-95"
+          >
+            Entrar
+          </button>
+        </form>
       </div>
     </div>
   );
 };
 
-export default App;
+export default LoginPage;

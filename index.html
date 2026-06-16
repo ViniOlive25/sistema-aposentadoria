@@ -7,6 +7,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simulador de Aposentadoria MG</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'see-blue': { DEFAULT: '#1ca0f2', dark: '#1588d0', light: '#e8f4fd' },
+              'see-gold': { DEFAULT: '#e5a224', dark: '#c4891d', light: '#fdf6e8' },
+              'see-green': { DEFAULT: '#18b518', dark: '#13961a', light: '#e8fde8' },
+              'see-orange': { DEFAULT: '#ff770f', dark: '#e06100', light: '#fff4e8' },
+              'see-red': { DEFAULT: '#ed1d23', dark: '#c41920', light: '#fde8e8' },
+              'see-dark': '#3b3b3a',
+              'see-bg': '#f5f5f5',
+              'see-text': '#292929',
+              'see-text-gray': '#647487',
+            },
+            fontFamily: {
+              'poppins': ['Poppins', 'sans-serif'],
+            },
+          },
+        },
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -194,16 +216,10 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
 </head>
   <body>
     <div id="root"></div>
-    <div class="print-only print-footer">
-      <p style="font-weight: bold; margin-bottom: 4px;">AVISO OBRIGATÓRIO ⚠️</p>
-      <p style="margin-bottom: 4px;">
-        Este cálculo é apenas uma estimativa, elaborado com base nas regras vigentes na data da simulação, as quais podem sofrer alterações. Dependendo da regra aplicável, podem existir especificações que influenciam o resultado. Para um cálculo oficial, consulte o setor responsável do Estado de Minas Gerais.
-      </p>
-    </div>
+
     <script type="module" src="/src/index.tsx"></script>
   </body>
 </html>

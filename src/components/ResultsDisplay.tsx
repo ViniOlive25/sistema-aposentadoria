@@ -42,22 +42,22 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ result }) => {
 
   return (
     <div id="printable-area" className="space-y-8">
-      <div className="relative text-center p-6 bg-slate-100 rounded-lg border border-slate-200 shadow-sm">
-        <h2 className="text-2xl font-bold text-slate-800 mb-2">Resultado da Simulação</h2>
+      <div className="relative text-center p-6 bg-see-bg rounded-lg border border-gray-200 shadow-sm">
+        <h2 className="text-2xl font-bold text-see-text mb-2">Resultado da Simulação</h2>
         {result.userName && (
-          <p className="text-lg font-semibold text-slate-700">Servidor: {result.userName}</p>
+          <p className="text-lg font-semibold text-see-text">Servidor: {result.userName}</p>
         )}
         {(result.userMasp || result.userAdmissionNumber) && (
-          <p className="text-slate-600">
+          <p className="text-see-text-gray">
             {result.userMasp && `MASP: ${result.userMasp}`}
             {result.userMasp && result.userAdmissionNumber && ' / '}
             {result.userAdmissionNumber && `Admissão: ${result.userAdmissionNumber}`}
           </p>
         )}
-        <p className="text-sm text-slate-500 mt-2">Calculado em: {result.calculatedOn}</p>
+        <p className="text-sm text-see-text-gray mt-2">Calculado em: {result.calculatedOn}</p>
         {result.feriasPremioIncluded && (
-          <div className="mt-4 inline-flex items-center gap-2 px-3 py-1 bg-amber-50 text-amber-800 rounded-full text-xs font-medium border border-amber-200">
-             <svg className="w-3 h-3 text-amber-600" fill="currentColor" viewBox="0 0 20 20">
+          <div className="mt-4 inline-flex items-center gap-2 px-3 py-1 bg-see-orange-light text-see-orange-dark rounded-full text-xs font-medium border border-see-orange/30">
+             <svg className="w-3 h-3 text-see-orange" fill="currentColor" viewBox="0 0 20 20">
                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
              </svg>
              Saldo de Férias Prêmio em dobro utilizado: {result.feriasPremioIncluded} dias
@@ -68,16 +68,16 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ result }) => {
       {sortedEligibleRules.length > 0 && (
         <div className="space-y-6">
           {result.eligibleForAbono && (
-            <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg shadow-sm break-inside-avoid mb-6">
+            <div className="bg-see-blue-light border-l-4 border-see-blue p-6 rounded-r-lg shadow-sm break-inside-avoid mb-6">
               <div className="flex items-start">
                 <div className="flex-shrink-0">
-                  <svg className="h-6 w-6 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="h-6 w-6 text-see-blue" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
                 <div className="ml-4">
-                  <h3 className="text-lg font-bold text-blue-800">Direito ao Abono de Permanência!</h3>
-                  <p className="mt-2 text-blue-700 leading-relaxed">
+                  <h3 className="text-lg font-bold text-see-blue-dark">Direito ao Abono de Permanência!</h3>
+                  <p className="mt-2 text-see-blue leading-relaxed">
                     Como você já preenche os requisitos para se aposentar em pelo menos uma regra, você tem direito a receber o <strong>Abono de Permanência</strong> se optar por continuar trabalhando. Este benefício corresponde ao valor da sua contribuição previdenciária.
                   </p>
                 </div>
@@ -86,7 +86,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ result }) => {
           )}
           
           <div>
-              <h3 className="text-xl font-semibold mb-4 pb-2 border-b-2 border-green-500 text-green-700 break-after-avoid">🎉 Parabéns! Você já possui direito à aposentadoria pelas seguintes regras:</h3>
+              <h3 className="text-xl font-semibold mb-4 pb-2 border-b-2 border-see-green text-see-green-dark break-after-avoid">🎉 Parabéns! Você já possui direito à aposentadoria pelas seguintes regras:</h3>
               <div className="space-y-6">
                   {sortedEligibleRules.map((rule) => <RuleCard key={rule.ruleName} rule={rule} />)}
               </div>
@@ -96,7 +96,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ result }) => {
 
       {notEligibleRules.length > 0 && (
         <div className="mt-8">
-            <h3 className="text-xl font-semibold mb-4 pb-2 border-b-2 border-orange-500 text-orange-700 break-after-avoid">🔍 Análise das demais regras (requisitos ainda não cumpridos):</h3>
+            <h3 className="text-xl font-semibold mb-4 pb-2 border-b-2 border-see-orange text-see-orange-dark break-after-avoid">🔍 Análise das demais regras (requisitos ainda não cumpridos):</h3>
             <div className="space-y-6">
                 {notEligibleRules.map(rule => <RuleCard key={rule.ruleName} rule={rule} isClosest={rule.ruleName === closestNotEligibleRuleName} />)}
             </div>

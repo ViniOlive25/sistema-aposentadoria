@@ -43,30 +43,38 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800">
+    <div className="min-h-screen bg-see-bg text-see-text">
       <div className="no-print">
         {!isFullscreen && <Header />}
       </div>
+
+      <div className="print-only print-footer">
+        <p className="font-bold  margin-bottom: 4px;">AVISO OBRIGATÓRIO ⚠️</p>
+        <p className="margin-bottom: 4px;">
+          Este cálculo é apenas uma estimativa, elaborado com base nas regras vigentes na data da simulação, as quais podem sofrer alterações. Dependendo da regra aplicável, podem existir especificações que influenciam o resultado. Para um cálculo oficial, consulte o setor responsável do Estado de Minas Gerais.
+        </p>
+      </div>
+
       <main className="container mx-auto p-4 md:p-8">
         <div className="max-w-4xl mx-auto">
           {!isFullscreen && (
-            <p className="text-center text-slate-600 mb-8 no-print">
+            <p className="text-center text-see-text-gray mb-8 no-print">
               Preencha os campos abaixo para simular as possibilidades de aposentadoria para servidores da educação de Minas Gerais.
             </p>
           )}
-          <div className="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-slate-200 retirement-form-container">
+          <div className="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-200 retirement-form-container">
             <RetirementForm onSubmit={handleAnalysis} isLoading={isLoading} />
           </div>
           
           {isLoading && (
             <div className="text-center mt-8 no-print">
-              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-              <p className="mt-2 text-blue-600 font-semibold">Analisando...</p>
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-see-gold"></div>
+              <p className="mt-2 text-see-gold font-semibold">Analisando...</p>
             </div>
           )}
 
           {error && (
-            <div className="mt-8 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-md no-print" role="alert">
+            <div className="mt-8 bg-see-red-light border-l-4 border-see-red text-see-red-dark p-4 rounded-md no-print" role="alert">
               <p className="font-bold">Erro na Análise</p>
               <p>{error}</p>
             </div>

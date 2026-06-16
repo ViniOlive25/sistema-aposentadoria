@@ -1,11 +1,11 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
-import { UserData, AnalysisResult } from './types';
-import { analyzeRetirement } from './services/retirementCalculator';
-import RetirementForm from './components/RetirementForm';
-import ResultsDisplay from './components/ResultsDisplay';
-import { Header } from './components/Header';
-import { Footer } from './components/Footer';
+import { UserData, AnalysisResult } from '../../types';
+import { analyzeRetirement } from '../../services/retirementCalculator';
+import RetirementForm from '../../components/RetirementForm';
+import ResultsDisplay from '../../components/ResultsDisplay';
+import { Header } from '../../components/Header';
+import { Footer } from '../../components/Footer';
 
 const App: React.FC = () => {
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);

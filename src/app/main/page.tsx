@@ -43,25 +43,26 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-see-bg text-see-text">
+    <div className="min-h-screen bg-see-bg text-see-text font-poppins">
       <div className="no-print">
         {!isFullscreen && <Header />}
       </div>
 
-      <div className="print-only print-footer">
-        <p className="font-bold  margin-bottom: 4px;">AVISO OBRIGATÓRIO ⚠️</p>
-        <p className="margin-bottom: 4px;">
-          Este cálculo é apenas uma estimativa, elaborado com base nas regras vigentes na data da simulação, as quais podem sofrer alterações. Dependendo da regra aplicável, podem existir especificações que influenciam o resultado. Para um cálculo oficial, consulte o setor responsável do Estado de Minas Gerais.
+      <div className="max-w-[90%] md:max-w-3xl mx-auto rounded-lg border border-see-red bg-white p-4 text-center mt-[1%]">
+        <p className="font-bold text-see-red text-lg mb-2">AVISO IMPORTANTE ⚠️</p>
+        <p className="text-see-dark text-sm leading-relaxed">
+          Este cálculo é apenas uma estimativa, elaborado com base nas regras vigentes na data da simulação, 
+          as quais podem sofrer alterações. 
+          Dependendo da regra aplicável, podem existir especificações que influenciam o resultado. 
+        </p>
+       <br/>
+        <p className="text-see text-sm leading-relaxed font-bold">
+            Para um cálculo oficial, consulte o setor responsável do <span className="text-see-red">Estado de Minas Gerais</span>.
         </p>
       </div>
 
       <main className="container mx-auto p-4 md:p-8">
-        <div className="max-w-4xl mx-auto">
-          {!isFullscreen && (
-            <p className="text-center text-see-text-gray mb-8 no-print">
-              Preencha os campos abaixo para simular as possibilidades de aposentadoria para servidores da educação de Minas Gerais.
-            </p>
-          )}
+        <div className="max-w-3xl mx-auto">
           <div className="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-200 retirement-form-container">
             <RetirementForm onSubmit={handleAnalysis} isLoading={isLoading} />
           </div>

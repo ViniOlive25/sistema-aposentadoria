@@ -107,8 +107,10 @@ const RetirementForm: React.FC<RetirementFormProps> = ({ onSubmit, isLoading }) 
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <h2 className="text-xl font-semibold text-center text-see-text mb-6">Informações do Servidor</h2>
-      
+      <h2 className="text-xl font-semibold text-center text-see-dark mb-6">INFORMAÇÕES DO SERVIDOR</h2>
+      <p className="text-center text-see-text-gray mb-8 no-print">
+          Preencha os campos abaixo para simular as possibilidades de aposentadoria para servidores da educação de Minas Gerais.
+      </p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label htmlFor="name" className={labelStyle}>Nome Completo</label>
@@ -262,7 +264,7 @@ const RetirementForm: React.FC<RetirementFormProps> = ({ onSubmit, isLoading }) 
 
 
       <div className="no-print">
-        <button type="submit" disabled={isLoading} className="w-full bg-see-gold text-white font-bold py-3 px-4 rounded-lg hover:bg-see-gold-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-see-gold transition-all disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center">
+        <button type="submit" disabled={isLoading} className="w-full bg-see-red text-white font-bold py-3 px-4 rounded-xl hover:bg-see-red-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-see-red transition-all disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center">
           {isLoading ? (
             <>
               <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

@@ -3,9 +3,9 @@ import React from 'react';
 export const Header: React.FC = () => {
   return (
     <header className="bg-white shadow-md border-t-4 border-see-red">
-      <div className="container mx-auto px-4 md:px-8 py-4 flex flex-col md:flex-row items-center justify-center relative min-h-[90px]">
+      <div className="container mx-auto px-4 md:px-8 py-4 flex flex-col sm:flex-row items-center justify-center sm:justify-between min-h-[120px] gap-4">
         
-        <div className="mb-3 md:mb-0 md:absolute md:left-0">
+        <div className="flex-shrink-0 2xl:absolute 2xl:left-3">
           <img 
             src="assets/logo-atualizada-gov-mg.png" 
             alt="Logo" 
@@ -13,13 +13,12 @@ export const Header: React.FC = () => {
           />
         </div>
 
-        {/* Container do Texto (permanece centralizado) */}
-        <div className="flex flex-col items-center text-center">
-          <h1 className="text-2xl md:text-3xl font-bold text-see-text tracking-tight leading-none">
-            Simulador de Aposentadoria
+        <div className="flex flex-col items-center text-center sm:flex-1">
+          <h1 className="text-2xl md:text-3xl font-bold text-see-dark tracking-tight leading-none">
+            SIMULADOR DE APOSENTADORIA
           </h1>
-          <p className="text-see-red font-semibold tracking-wider text-[10px] md:text-xs mt-2 uppercase">
-            Secretaria de Estado de Educação de Minas Gerais
+          <p className="text-see-red font-semibold tracking-wider text-[15px] mt-2 uppercase">
+            SECRETARIA DE ESTADO DE EDUCAÇÃO DE MINAS GERAIS
           </p>
         </div>
 

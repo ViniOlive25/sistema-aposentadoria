@@ -1,6 +1,6 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
-import { UserData, AnalysisResult } from '../../types';
+import { UserData, AnalysisResult } from '../../types/types';
 import { analyzeRetirement } from '../../services/retirementCalculator';
 import RetirementForm from '../../components/RetirementForm';
 import ResultsDisplay from '../../components/ResultsDisplay';
@@ -11,20 +11,23 @@ const App: React.FC = () => {
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('fullscreen') === 'true') {
-      setIsFullscreen(true);
+    if (analysisResult !== null && !isLoading) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
     }
-  }, []);
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [analysisResult, isLoading]);
 
   const handleAnalysis = useCallback((data: UserData) => {
     setIsLoading(true);
     setError(null);
     setAnalysisResult(null);
-    
+
     // Simulate async calculation for better UX
     setTimeout(() => {
       try {
@@ -44,20 +47,18 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-see-bg text-see-text font-poppins">
-      <div className="no-print">
-        {!isFullscreen && <Header />}
-      </div>
+      <Header />
 
       <div className="max-w-[90%] md:max-w-3xl mx-auto rounded-lg border border-see-red bg-white p-4 text-center mt-[1%]">
         <p className="font-bold text-see-red text-lg mb-2">AVISO IMPORTANTE ⚠️</p>
         <p className="text-see-dark text-sm leading-relaxed">
-          Este cálculo é apenas uma estimativa, elaborado com base nas regras vigentes na data da simulação, 
-          as quais podem sofrer alterações. 
-          Dependendo da regra aplicável, podem existir especificações que influenciam o resultado. 
+          Este cálculo é apenas uma estimativa, elaborado com base nas regras vigentes na data da simulação,
+          as quais podem sofrer alterações.
+          Dependendo da regra aplicável, podem existir especificações que influenciam o resultado.
         </p>
-       <br/>
+        <br />
         <p className="text-see text-sm leading-relaxed font-bold">
-            Para um cálculo oficial, consulte o setor responsável do <span className="text-see-red">Estado de Minas Gerais</span>.
+          Para um cálculo oficial, consulte o setor responsável do <span className="text-see-red">Estado de Minas Gerais</span>.
         </p>
       </div>
 
@@ -66,7 +67,7 @@ const App: React.FC = () => {
           <div className="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-200 retirement-form-container">
             <RetirementForm onSubmit={handleAnalysis} isLoading={isLoading} />
           </div>
-          
+
           {isLoading && (
             <div className="text-center mt-8 no-print">
               <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-see-gold"></div>
@@ -82,26 +83,23 @@ const App: React.FC = () => {
           )}
 
           {analysisResult != null && !isLoading && (
-  <div className="fixed inset-0 z-50 flex justify-center overflow-y-auto">
-    {/* Overlay que fecha o modal */}
-    <div 
-      className='fixed inset-0 w-full h-full bg-black bg-opacity-50'
-      onClick={() => setAnalysisResult(null)}
-    ></div>
-
-    {/* Conteúdo - Adicionei uma margem e um z-index para garantir que fique acima */}
-    <div 
-      className="relative w-full max-w-4xl mx-auto pt-8 pb-8 px-4 z-10"
-      onClick={(e) => e.stopPropagation()} // Impede que cliques no card fechem o modal
-    >
-      <ResultsDisplay result={analysisResult} />
-    </div>
-  </div>
-)}
+            <div className="fixed inset-0 z-50 flex justify-center overflow-y-auto">
+              <div
+                className='fixed inset-0 w-full h-full bg-black bg-opacity-50'
+                onClick={() => setAnalysisResult(null)}
+              ></div>
+              <div
+                className="relative w-full max-w-4xl mx-auto pt-8 pb-8 px-4 z-10"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <ResultsDisplay result={analysisResult} />
+              </div>
+            </div>
+          )}
         </div>
       </main>
-       <Footer />
-      
+      <Footer />
+
     </div>
   );
 };

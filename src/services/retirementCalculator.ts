@@ -1,21 +1,21 @@
 
-import { UserData, AnalysisResult, RuleResult, RequirementStatus, Gender, Role, DisabilityDegree } from '../types';
+import { UserData, AnalysisResult, RuleResult, RequirementStatus, Gender, Role, DisabilityDegree } from '../types/types';
 import {
-  MIN_CONTRIBUTION,
-  PERMANENT_RULE_MIN_CONTRIBUTION,
-  MIN_AGE_TOLL,
-  MIN_AGE_POINTS,
-  MIN_AGE_PERMANENT,
-  MIN_AGE_COMPULSORY,
-  MIN_PUBLIC_SERVICE_DAYS,
-  MIN_ROLE_SERVICE_DAYS,
-  REFORM_DATE_2020,
-  EC41_DATE,
-  EC20_DATE,
-  POINTS_TABLE,
-  MIN_CONTRIBUTIONS_DISABLED_RULE,
-  MIN_AGE_DISABLED,
-  MIN_CONTRIBUTION_DISABLED
+    MIN_CONTRIBUTION,
+    PERMANENT_RULE_MIN_CONTRIBUTION,
+    MIN_AGE_TOLL,
+    MIN_AGE_POINTS,
+    MIN_AGE_PERMANENT,
+    MIN_AGE_COMPULSORY,
+    MIN_PUBLIC_SERVICE_DAYS,
+    MIN_ROLE_SERVICE_DAYS,
+    REFORM_DATE_2020,
+    EC41_DATE,
+    EC20_DATE,
+    POINTS_TABLE,
+    MIN_CONTRIBUTIONS_DISABLED_RULE,
+    MIN_AGE_DISABLED,
+    MIN_CONTRIBUTION_DISABLED
 } from '../constants';
 
 // --- HELPER FUNCTIONS ---
@@ -32,10 +32,10 @@ const getAgeReductionDays = (userData: UserData, contributionDaysToday: number, 
 };
 
 const parseDate = (dateStr: string): Date => {
-  if (!dateStr) throw new Error("Uma data obrigatória não foi fornecida.");
-  const [year, month, day] = dateStr.split('-').map(Number);
-  if (!year || !month || !day) throw new Error(`Data inválida: ${dateStr}`);
-  return new Date(year, month - 1, day);
+    if (!dateStr) throw new Error("Uma data obrigatória não foi fornecida.");
+    const [year, month, day] = dateStr.split('-').map(Number);
+    if (!year || !month || !day) throw new Error(`Data inválida: ${dateStr}`);
+    return new Date(year, month - 1, day);
 };
 
 const daysBetween = (date1: Date, date2: Date): number => {
@@ -82,7 +82,7 @@ const createRequirementStatus = (
 
 const calculateOverallProgress = (requirements: RequirementStatus[]): number => {
     const requirementsWithProgress = requirements.filter(
-      r => !r.met && typeof r.currentValue !== 'undefined' && typeof r.requiredValue !== 'undefined' && r.requiredValue > 0
+        r => !r.met && typeof r.currentValue !== 'undefined' && typeof r.requiredValue !== 'undefined' && r.requiredValue > 0
     );
     if (requirementsWithProgress.length === 0) return 100;
 
@@ -117,7 +117,7 @@ const projectEligibilityDate = (
         projectedDate.setDate(projectedDate.getDate() + 1);
         projectedAge++;
         projectedContribution++;
-        
+
         const result = checkerFunction(data, projectedDate, projectedAge, projectedContribution, initialContribution2020);
         if (result.eligible) {
             return projectedDate;
@@ -131,11 +131,11 @@ const projectEligibilityDate = (
 function checkTransitionPointsRule(data: UserData, today: Date, ageInDaysToday: number, contributionDaysToday: number): RuleResult {
     const key = `${data.role === Role.Teacher ? 'teacher_' : ''}${data.gender}`;
     const minContribution = MIN_CONTRIBUTION[key as keyof typeof MIN_CONTRIBUTION];
-    
+
     const birthDate = parseDate(data.birthDate);
     const originalMinAgeYears = MIN_AGE_POINTS[key as keyof typeof MIN_AGE_POINTS];
     const baseMinAgeInDays = getDaysToAge(birthDate, originalMinAgeYears);
-    
+
     // Cálculo da redução em dias (para ingresso até 16/12/1998)
     const reductionInDays = getAgeReductionDays(data, contributionDaysToday, minContribution);
     const requiredAgeInDays = baseMinAgeInDays - reductionInDays;
@@ -147,7 +147,7 @@ function checkTransitionPointsRule(data: UserData, today: Date, ageInDaysToday: 
     }
 
     const requiredPoints = getRequiredPoints(key, today.getFullYear());
-    
+
     const ageInYearsToday = ageInDaysToday / Y;
     const contributionInYearsToday = contributionDaysToday / Y;
     const currentPoints = ageInYearsToday + contributionInYearsToday;
@@ -166,13 +166,13 @@ function checkTransitionPointsRule(data: UserData, today: Date, ageInDaysToday: 
     ];
 
     const allMet = requirements.every(r => r.met);
-    
+
     // Regra de Remuneração ajustada:
     // Integralidade e Paridade para quem ingressou até 31/12/2003 E atingiu 65 (H) / 60 (M).
     const isPre2003 = entryDateObj <= EC41_DATE;
     const requiredParityAge = data.gender === Gender.Male ? 65 : 60;
     const minParityAgeDays = getDaysToAge(birthDate, requiredParityAge);
-    
+
     let remuneration = 'Média das contribuições';
     if (isPre2003) {
         if (ageInDaysToday > minParityAgeDays) {
@@ -226,7 +226,7 @@ function checkTransitionTollRule(data: UserData, today: Date, ageInDaysToday: nu
         { label: 'Tempo de Serviço Público', required: '10 anos', current: 'Assumido como cumprido', met: true },
         createRequirementStatus('Tempo no Cargo Efetivo', '5 anos', formatDays(cargoDaysToday), isCargoMet, cargoDaysToday, minCargoDays),
     ];
-    
+
     const allMet = requirements.every(r => r.met);
     const remuneration = entryDateObj <= EC41_DATE ? 'Integralidade e Paridade' : 'Média das contribuições';
 
@@ -320,7 +320,7 @@ function checkVestedRightsRule(data: UserData, today: Date, ageInDaysToday: numb
         const minAgeDays5 = getDaysToAge(birthDate, minAge5);
         const targetContrib = (isMale ? 35 : 30) - teacherReduction;
         const targetContribDays = targetContrib * Y;
-        
+
         const contribIn1998 = daysBetween(entryDate, EC20_DATE);
         const missingIn1998 = Math.max(0, targetContribDays - contribIn1998);
         const toll = missingIn1998 * 0.2;
@@ -351,8 +351,8 @@ function checkVestedRightsRule(data: UserData, today: Date, ageInDaysToday: numb
     if (eligibleRules.length > 0) {
         // Preference: Integralidade/Paridade > Média > Proporcional
         bestRule = eligibleRules.find(r => r.remuneration.includes('Integralidade')) ||
-                   eligibleRules.find(r => r.remuneration.includes('Média')) ||
-                   eligibleRules[0];
+            eligibleRules.find(r => r.remuneration.includes('Média')) ||
+            eligibleRules[0];
     } else {
         // Pick the one with highest progress
         bestRule = subRules.sort((a, b) => calculateOverallProgress(b.reqs) - calculateOverallProgress(a.reqs))[0];
@@ -389,7 +389,7 @@ function checkPermanentRule(data: UserData, today: Date, ageInDaysToday: number,
     ];
 
     const allMet = requirements.every(r => r.met);
-    
+
     return {
         ruleName: 'Regra Permanente',
         description: 'Para quem ingressou no serviço público após 15/09/2020 ou para quem não se enquadra nas regras de transição.',
@@ -433,12 +433,12 @@ function checkCompulsoryRule(data: UserData, today: Date, ageInDaysToday: number
 
 function checkDisabledContributionRule(data: UserData, today: Date, ageInDaysToday: number, contributionDaysToday: number): RuleResult {
     if (!data.disabilityDegree || data.disabilityDegree === DisabilityDegree.None) {
-        return { eligible: false } as RuleResult; 
+        return { eligible: false } as RuleResult;
     }
-    
+
     const genderKey = data.gender as keyof typeof MIN_CONTRIBUTION_DISABLED['grave'];
     const degreeKey = data.disabilityDegree as 'grave' | 'moderada' | 'leve';
-    
+
     const minContribution = MIN_CONTRIBUTION_DISABLED[degreeKey][genderKey];
 
     const contributionInYears = contributionDaysToday / Y;
@@ -479,7 +479,7 @@ function checkDisabledAgeRule(data: UserData, today: Date, ageInDaysToday: numbe
     ];
 
     const allMet = requirements.every(r => r.met);
-    
+
     return {
         ruleName: 'Aposentadoria da Pessoa com Deficiência (Idade)',
         description: 'Regra alternativa por idade para servidores com deficiência, baseada na LC 142/2013.',
@@ -501,7 +501,7 @@ export const analyzeRetirement = (data: UserData): AnalysisResult => {
     if (birthDate > today || entryDate > today || birthDate > entryDate) {
         throw new Error("As datas fornecidas são inválidas. Verifique a data de nascimento e de ingresso.");
     }
-    
+
     let processedContribution2020 = data.contributionDays_2020;
     let contributionDaysUpToToday = data.contributionDays_today;
 
@@ -532,7 +532,7 @@ export const analyzeRetirement = (data: UserData): AnalysisResult => {
     }
 
     const ageInDaysToday = daysBetween(birthDate, today);
-    
+
     const rulesCalculations = [];
 
     if (entryDate <= EC41_DATE) {
@@ -552,7 +552,7 @@ export const analyzeRetirement = (data: UserData): AnalysisResult => {
             args: [data, today, ageInDaysToday, contributionDaysUpToToday, processedContribution2020]
         });
     }
-    
+
     rulesCalculations.push({
         checker: (d: UserData, t: Date, age: number, contrib: number) => checkPermanentRule(d, t, age, contrib),
         args: [data, today, ageInDaysToday, contributionDaysUpToToday]
@@ -568,15 +568,15 @@ export const analyzeRetirement = (data: UserData): AnalysisResult => {
             args: [data, today, ageInDaysToday, contributionDaysUpToToday]
         });
     }
-    
+
     const rules: RuleResult[] = rulesCalculations.map(({ checker, args }) => {
         const result = checker(...args);
         if (!result.eligible && result.ruleName !== 'Direito Adquirido') {
-             const projectedDate = projectEligibilityDate(
-                checker, 
-                data, 
-                ageInDaysToday, 
-                contributionDaysUpToToday, 
+            const projectedDate = projectEligibilityDate(
+                checker,
+                data,
+                ageInDaysToday,
+                contributionDaysUpToToday,
                 processedContribution2020
             );
 
@@ -593,7 +593,7 @@ export const analyzeRetirement = (data: UserData): AnalysisResult => {
                     if (pointsRequirement && pointsRequirement.requiredValue !== requiredPointsInFuture) {
                         pointsRequirement.required = `${requiredPointsInFuture} pontos (em ${projectedYear})`;
                         pointsRequirement.requiredValue = requiredPointsInFuture;
-                        
+
                         // Clear any missing text for points to respect user request
                         delete pointsRequirement.missing;
                     }
@@ -604,7 +604,7 @@ export const analyzeRetirement = (data: UserData): AnalysisResult => {
                     const requiredParityAge = data.gender === Gender.Male ? 65 : 60;
                     const daysUntilProjection = daysBetween(today, projectedDate);
                     const projectedAgeInYears = (ageInDaysToday + daysUntilProjection) / Y;
-                    
+
                     if (isPre2003) {
                         if (projectedAgeInYears >= requiredParityAge) {
                             result.remuneration = 'Integralidade e Paridade';

@@ -47,7 +47,6 @@ export const MIN_CONTRIBUTION_DISABLED = {
   leve: { male: 33 * Y, female: 28 * Y },
 };
 
-
 export const MIN_PUBLIC_SERVICE_DAYS = 10 * Y;
 export const MIN_ROLE_SERVICE_DAYS = 5 * Y;
 

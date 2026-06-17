@@ -46,10 +46,11 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-see-bg text-see-text font-poppins">
+    <div className="min-h-screen flex flex-col w-full bg-see-bg text-see-text font-poppins">
       <Header />
-
-      <div className="max-w-[90%] md:max-w-3xl mx-auto rounded-lg border border-see-red bg-white p-4 text-center mt-[1%]">
+      
+      <div className="flex-grow">
+        <div className="max-w-[90%] md:max-w-3xl mx-auto rounded-lg border border-see-red bg-white p-4 text-center mt-[1%]">
         <p className="font-bold text-see-red text-lg mb-2">AVISO IMPORTANTE ⚠️</p>
         <p className="text-see-dark text-sm leading-relaxed">
           Este cálculo é apenas uma estimativa, elaborado com base nas regras vigentes na data da simulação,
@@ -98,6 +99,7 @@ const App: React.FC = () => {
           )}
         </div>
       </main>
+      </div>
       <Footer />
 
     </div>

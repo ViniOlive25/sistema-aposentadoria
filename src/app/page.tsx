@@ -22,12 +22,12 @@ const LoginPage: React.FC = () => {
     <div className="min-h-screen bg-see-bg text-see-dark font-poppins">
       {/* Header */}
       <Header />
-      <div className="w-full max-w-lg bg-white rounded-2xl shadow-2xl p-8 mt-30 mx-auto mt-10">
+      <div className="w-full max-w-xl bg-white rounded-2xl shadow-2xl p-8 mx-auto mt-10">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-see-dark mb-2">
             LOGIN
           </h1>
-          <p className="text-md mb-4">
+          <p className="text-lg">
             Digite suas credenciais para acessar o sistema
           </p>
         </div>
@@ -36,7 +36,7 @@ const LoginPage: React.FC = () => {
         <form onSubmit={handleLogin} className="space-y-5">
           {/* Username */}
           <div>
-            <label htmlFor="username" className="block text-sm font-semibold mb-2">
+            <label htmlFor="username" className="block text-xl font-semibold">
               Usuário
             </label>
             <input
@@ -51,7 +51,7 @@ const LoginPage: React.FC = () => {
 
           {/* Password */}
           <div>
-            <label htmlFor="password" className="block text-sm font-semibold mb-2">
+            <label htmlFor="password" className="block text-xl font-semibold">
               Senha
             </label>
             <input

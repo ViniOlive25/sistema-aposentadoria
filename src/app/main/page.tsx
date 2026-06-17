@@ -62,7 +62,7 @@ const App: React.FC = () => {
       </div>
 
       <main className="container mx-auto p-4 md:p-8">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <div className="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-200 retirement-form-container">
             <RetirementForm onSubmit={handleAnalysis} isLoading={isLoading} />
           </div>
@@ -88,9 +88,8 @@ const App: React.FC = () => {
           )}
         </div>
       </main>
-       <div className="no-print">
-        {!isFullscreen && <Footer />}
-      </div>
+       <Footer />
+      
     </div>
   );
 };

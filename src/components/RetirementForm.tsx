@@ -264,7 +264,7 @@ const RetirementForm: React.FC<RetirementFormProps> = ({ onSubmit, isLoading }) 
 
 
       <div className="no-print">
-        <button type="submit" disabled={isLoading} className="w-full bg-see-red text-white font-bold py-3 px-4 rounded-xl hover:bg-see-red-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-see-red transition-all disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center">
+        <button type="submit" disabled={isLoading} className="w-[40%] mx-auto bg-see-red text-white font-bold py-3 px-4 rounded-xl hover:bg-see-red-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-see-red transition-all disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center">
           {isLoading ? (
             <>
               <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

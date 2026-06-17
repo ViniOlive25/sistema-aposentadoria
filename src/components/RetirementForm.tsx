@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { UserData, Gender, Role, DisabilityDegree } from '../types/types';
-import { EC20_DATE } from '../constants';
+import { EC20_DATE } from '../services/constants';
 
 interface RetirementFormProps {
   onSubmit: (data: UserData) => void;

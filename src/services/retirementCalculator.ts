@@ -16,7 +16,7 @@ import {
     MIN_CONTRIBUTIONS_DISABLED_RULE,
     MIN_AGE_DISABLED,
     MIN_CONTRIBUTION_DISABLED
-} from '../constants';
+} from './constants';
 
 // --- HELPER FUNCTIONS ---
 const Y = 365.25;

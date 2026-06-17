@@ -104,10 +104,9 @@ const RetirementForm: React.FC<RetirementFormProps> = ({ onSubmit, isLoading }) 
   const inputStyle = "w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-md focus:ring-2 focus:ring-see-gold focus:border-see-gold transition-shadow [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none";
   const labelStyle = "block text-sm font-medium text-see-text-gray mb-1";
 
-
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <h2 className="text-xl font-semibold text-center text-see-dark mb-6">INFORMAÇÕES DO SERVIDOR</h2>
+      <h2 className="text-2xl font-semibold text-center text-see-dark mb-6">INFORMAÇÕES DO SERVIDOR</h2>
       <p className="text-center text-see-text-gray mb-8 no-print">
           Preencha os campos abaixo para simular as possibilidades de aposentadoria para servidores da educação de Minas Gerais.
       </p>

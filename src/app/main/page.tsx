@@ -81,11 +81,23 @@ const App: React.FC = () => {
             </div>
           )}
 
-          {analysisResult && !isLoading && (
-            <div className="mt-10 results-container">
-              <ResultsDisplay result={analysisResult} />
-            </div>
-          )}
+          {analysisResult != null && !isLoading && (
+  <div className="fixed inset-0 z-50 flex justify-center overflow-y-auto">
+    {/* Overlay que fecha o modal */}
+    <div 
+      className='fixed inset-0 w-full h-full bg-black bg-opacity-50'
+      onClick={() => setAnalysisResult(null)}
+    ></div>
+
+    {/* Conteúdo - Adicionei uma margem e um z-index para garantir que fique acima */}
+    <div 
+      className="relative w-full max-w-4xl mx-auto pt-8 pb-8 px-4 z-10"
+      onClick={(e) => e.stopPropagation()} // Impede que cliques no card fechem o modal
+    >
+      <ResultsDisplay result={analysisResult} />
+    </div>
+  </div>
+)}
         </div>
       </main>
        <Footer />

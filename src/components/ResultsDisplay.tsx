@@ -41,7 +41,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ result }) => {
   }
 
   return (
-    <div id="printable-area" className="space-y-8">
+    <div className="space-y-8 z-60 relative">
       <div className="relative text-center p-6 bg-see-bg rounded-lg border border-gray-200 shadow-sm">
         <h2 className="text-2xl font-bold text-see-text mb-2">Resultado da Simulação</h2>
         {result.userName && (

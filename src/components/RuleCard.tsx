@@ -127,7 +127,7 @@ const RuleCard: React.FC<RuleCardProps> = ({ rule, isClosest = false }) => {
            </div>
         )}
 
-        <div className={`p-3 rounded-lg text-center font-bold text-lg ${rule.eligible ? 'bg-see-green text-white' : (isVestedRights ? 'bg-see-red text-white' : 'bg-see-orange text-white')}`}>
+        <div className={`p-3 w-[80%] mx-auto rounded-lg text-center font-bold text-lg ${rule.eligible ? 'bg-see-green text-white' : (isVestedRights ? 'bg-see-red text-white' : 'bg-see-orange text-white')}`}>
           {rule.eligible ? 'ELEGÍVEL' : (isVestedRights ? 'NÃO ELEGÍVEL' : 'NÃO ELEGÍVEL AINDA')}
         </div>
       </div>
